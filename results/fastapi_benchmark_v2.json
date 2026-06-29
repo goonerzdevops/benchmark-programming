@@ -1,0 +1,74 @@
+{
+  "small": {
+    "count": 100,
+    "runs": [
+      {
+        "run": 1,
+        "response_ms": 17.3,
+        "server_ms": 0.00020360946655273438,
+        "items_out": 100
+      },
+      {
+        "run": 2,
+        "response_ms": 6.88,
+        "server_ms": 0.00017690658569335938,
+        "items_out": 100
+      },
+      {
+        "run": 3,
+        "response_ms": 8.96,
+        "server_ms": 0.00018715858459472656,
+        "items_out": 100
+      }
+    ],
+    "avg": 11.05
+  },
+  "medium": {
+    "count": 1000,
+    "runs": [
+      {
+        "run": 1,
+        "response_ms": 73.01,
+        "server_ms": 0.001964569091796875,
+        "items_out": 1000
+      },
+      {
+        "run": 2,
+        "response_ms": 35.24,
+        "server_ms": 0.0019516944885253906,
+        "items_out": 1000
+      },
+      {
+        "run": 3,
+        "response_ms": 33.67,
+        "server_ms": 0.0015239715576171875,
+        "items_out": 1000
+      }
+    ],
+    "avg": 47.31
+  },
+  "large": {
+    "count": 5000,
+    "runs": [
+      {
+        "run": 1,
+        "response_ms": 158.4,
+        "server_ms": 0.00978541374206543,
+        "items_out": 5000
+      },
+      {
+        "run": 2,
+        "response_ms": 147.29,
+        "server_ms": 0.014626264572143555,
+        "items_out": 5000
+      },
+      {
+        "run": 3,
+        "response_ms": 159.61,
+        "server_ms": 0.009682416915893555,
+        "items_out": 5000
+      }
+    ],
+    "avg": 155.1
+  }
+}

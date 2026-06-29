@@ -1,0 +1,74 @@
+{
+  "small": {
+    "count": 100,
+    "runs": [
+      {
+        "run": 1,
+        "response_ms": 9.74,
+        "server_ms": 2.65530900000158,
+        "items_out": 100
+      },
+      {
+        "run": 2,
+        "response_ms": 3.93,
+        "server_ms": 1.6522919999988517,
+        "items_out": 100
+      },
+      {
+        "run": 3,
+        "response_ms": 2.73,
+        "server_ms": 0.8833919999997306,
+        "items_out": 100
+      }
+    ],
+    "avg": 5.47
+  },
+  "medium": {
+    "count": 1000,
+    "runs": [
+      {
+        "run": 1,
+        "response_ms": 7.84,
+        "server_ms": 2.871917000000394,
+        "items_out": 1000
+      },
+      {
+        "run": 2,
+        "response_ms": 6.62,
+        "server_ms": 2.2426249999989523,
+        "items_out": 1000
+      },
+      {
+        "run": 3,
+        "response_ms": 5.45,
+        "server_ms": 1.9711999999999534,
+        "items_out": 1000
+      }
+    ],
+    "avg": 6.64
+  },
+  "large": {
+    "count": 5000,
+    "runs": [
+      {
+        "run": 1,
+        "response_ms": 16.91,
+        "server_ms": 7.028908000000229,
+        "items_out": 5000
+      },
+      {
+        "run": 2,
+        "response_ms": 14.45,
+        "server_ms": 5.66729199999827,
+        "items_out": 5000
+      },
+      {
+        "run": 3,
+        "response_ms": 13.77,
+        "server_ms": 5.136633999998594,
+        "items_out": 5000
+      }
+    ],
+    "avg": 15.04
+  }
+}

@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Benchmark v3 — 4-Stack API Comparison</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a33;
+      --text: #e8ecff;
+      --muted: #aab3da;
+      --accent: #7c9cff;
+      --good: #24c38a;
+      --warn: #ffb86b;
+      --bad: #ff6b7a;
+      --line: rgba(255,255,255,.08);
+      --shadow: 0 20px 50px rgba(0,0,0,.35);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #18244a 0%, var(--bg) 45%, #070b16 100%);
+      color: var(--text);
+      font: 15px/1.55 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 32px 18px 56px; }
+    .hero {
+      background: linear-gradient(135deg, rgba(124,156,255,.18), rgba(36,195,138,.08));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .kicker { color: var(--accent); text-transform: uppercase; letter-spacing: .14em; font-size: 12px; }
+    h1 { margin: 10px 0 6px; font-size: 34px; line-height: 1.1; }
+    h2 { margin: 0 0 14px; font-size: 20px; }
+    .sub { color: var(--muted); max-width: 80ch; }
+    .chips { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    .chip {
+      padding: 8px 12px; border-radius: 999px; background: rgba(255,255,255,.07);
+      border: 1px solid var(--line); color: var(--text); font-size: 13px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; margin-top: 18px; }
+    .card {
+      grid-column: span 12;
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    @media (min-width: 900px) {
+      .span-6 { grid-column: span 6; }
+      .span-4 { grid-column: span 4; }
+    }
+    table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 14px; }
+    th, td { padding: 12px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { color: #d7defd; background: rgba(255,255,255,.04); font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
+    tr:hover td { background: rgba(255,255,255,.02); }
+    .metric { display: flex; flex-direction: column; gap: 6px; }
+    .metric .label { color: var(--muted); font-size: 13px; }
+    .metric .value { font-size: 28px; font-weight: 700; }
+    .metric .hint { color: var(--muted); font-size: 13px; }
+    .stack-name { font-weight: 700; }
+    .good { color: var(--good); }
+    .warn { color: var(--warn); }
+    .bad { color: var(--bad); }
+    .hono { color: #f9e06b; }
+    .footer { color: var(--muted); font-size: 13px; margin-top: 18px; }
+    .bar {
+      height: 10px; border-radius: 999px; background: rgba(255,255,255,.08); overflow: hidden;
+      margin-top: 8px;
+    }
+    .fill { height: 100%; border-radius: inherit; }
+    .fill-net { width: 100%; background: linear-gradient(90deg, #6ea8ff, #9d7bff); }
+    .fill-fastapi { width: 60%; background: linear-gradient(90deg, #ffb86b, #ff7a59); }
+    .fill-go { width: 30%; background: linear-gradient(90deg, #24c38a, #7de0b3); }
+    .fill-hono { width: 48%; background: linear-gradient(90deg, #f9e06b, #f5b342); }
+    .small { font-size: 12px; color: var(--muted); }
+    .legend { display:flex; gap:14px; flex-wrap:wrap; font-size:13px; color:var(--muted); }
+    .dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; }
+    .winner { background: rgba(36,195,138,.15); border-left: 3px solid var(--good); padding: 4px 8px; border-radius: 6px; }
+    .thrones th:first-child { text-align: left; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!---HERO--->
+    <section class="hero">
+      <div class="kicker">Benchmark v3 Final Report</div>
+      <h1>.NET 10 · FastAPI · Go · Hono/Bun</h1>
+      <div class="sub">
+        Sequential benchmark, one server active at a time. Workload: ComplexDataTransformation
+        (aggregation, SHA256, transform, sort). Metrics include latency, RSS, CPU snapshot, and thread count.
+      </div>
+      <div class="chips">
+        <div class="chip">Date: 2026-06-28</div>
+        <div class="chip">Ports: 8891-8894</div>
+        <div class="chip">Mode: Isolated one-by-one</div>
+        <div class="chip">4 stacks</div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <!--- WINNER CARDS --->
+      <section class="card span-4">
+        <h2>Best Large Payload</h2>
+        <div class="metric">
+          <div class="value hono">Hono/Bun</div>
+          <div class="hint">15.04 ms at 5000 items — 2.6× faster than .NET</div>
+        </div>
+      </section>
+      <section class="card span-4">
+        <h2>Best Small Payload</h2>
+        <div class="metric">
+          <div class="value good">Go</div>
+          <div class="hint">4.83 ms at 100 items</div>
+        </div>
+      </section>
+      <section class="card span-4">
+        <h2>Best RAM Efficiency</h2>
+        <div class="metric">
+          <div class="value good">Go</div>
+          <div class="hint">6.4 MB RSS idle</div>
+        </div>
+      </section>
+
+      <!--- RESPONSE TIME TABLE --->
+      <section class="card span-12">
+        <h2>Response Time</h2>
+        <table>
+          <thead>
+            <tr><th>Stack</th><th style="text-align:right;">100 items</th><th style="text-align:right;">1000 items</th><th style="text-align:right;">5000 items</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="stack-name">.NET 10 Minimal API</td><td style="text-align:right;">9.16 ms</td><td style="text-align:right;">11.40 ms</td><td style="text-align:right;">40.13 ms</td></tr>
+            <tr><td class="stack-name">Python FastAPI</td><td style="text-align:right;">11.05 ms</td><td style="text-align:right;">47.31 ms</td><td style="text-align:right;">155.10 ms</td></tr>
+            <tr><td class="stack-name">Go net/http</td><td style="text-align:right;"><strong>4.83 ms</strong></td><td style="text-align:right;">15.54 ms</td><td style="text-align:right;">145.44 ms</td></tr>
+            <tr style="background:rgba(249,224,107,.04);"><td class="stack-name hono">🏆 Hono.js on Bun</td><td style="text-align:right;">5.47 ms</td><td style="text-align:right;"><strong>6.64 ms</strong></td><td style="text-align:right;"><strong>15.04 ms</strong></td></tr>
+          </tbody>
+        </table>
+        <div class="legend" style="margin-top:14px;">
+          <span><i class="dot" style="background:#9d7bff"></i>.NET</span>
+          <span><i class="dot" style="background:#ff7a59"></i>FastAPI</span>
+          <span><i class="dot" style="background:#24c38a"></i>Go</span>
+          <span><i class="dot" style="background:#f9e06b"></i>Hono/Bun</span>
+        </div>
+      </section>
+
+      <!--- RESOURCE TABLE --->
+      <section class="card span-12">
+        <h2>Resource Snapshot</h2>
+        <table>
+          <thead>
+            <tr><th>Stack</th><th style="text-align:right;">Threads</th><th style="text-align:right;">RSS</th><th style="text-align:right;">CPU%</th><th>Efficiency Verdict</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="stack-name">.NET 10</td><td style="text-align:right;">20 app + 23 host</td><td style="text-align:right;">~208 MB</td><td style="text-align:right;">10-81%</td><td>Heavy but best throughput contender</td></tr>
+            <tr><td class="stack-name">FastAPI</td><td style="text-align:right;">1</td><td style="text-align:right;">~45 MB</td><td style="text-align:right;">23.6%</td><td>Lightweight thread but lagging on scale</td></tr>
+            <tr><td class="stack-name">Go</td><td style="text-align:right;">6</td><td style="text-align:right;">~6.4 MB</td><td style="text-align:right;">~0%</td><td>🏆 Most RAM efficient</td></tr>
+            <tr style="background:rgba(249,224,107,.04);"><td class="stack-name hono">Hono/Bun</td><td style="text-align:right;">12</td><td style="text-align:right;">~54 MB</td><td style="text-align:right;">0.9%</td><td>🏆 Best performance/resource ratio</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!--- BAR CHART --->
+      <section class="card span-12">
+        <h2>Thread &amp; RSS Comparison</h2>
+        <div class="metric">
+          <div class="label">.NET 10 — 20+23 threads, ~208 MB RSS</div>
+          <div class="bar"><div class="fill fill-net"></div></div>
+          <div class="small">Host + app lifecycle; best at scale but most resource hungry.</div>
+        </div>
+        <div class="metric" style="margin-top:16px;">
+          <div class="label">FastAPI — 1 thread, ~45 MB RSS</div>
+          <div class="bar"><div class="fill fill-fastapi"></div></div>
+          <div class="small">Single async worker — lowest thread count, moderate memory.</div>
+        </div>
+        <div class="metric" style="margin-top:16px;">
+          <div class="label">Go net/http — 6 threads, ~6.4 MB RSS</div>
+          <div class="bar"><div class="fill fill-go"></div></div>
+          <div class="small">Tiny memory footprint, compiled binary, sharp latency rise on big payloads.</div>
+        </div>
+        <div class="metric" style="margin-top:16px;">
+          <div class="label">Hono/Bun — 12 threads, ~54 MB RSS</div>
+          <div class="bar"><div class="fill fill-hono"></div></div>
+          <div class="small">Outstanding latency across all sizes with moderate memory. Best value.</div>
+        </div>
+      </section>
+
+      <!--- VERDICT --->
+      <section class="card span-12">
+        <h2>Verdict</h2>
+        <table class="thrones">
+          <thead>
+            <tr><th>Category</th><th style="text-align:right;">Winner</th><th>Value</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Best large payload (5000 items)</td><td style="text-align:right;"><strong class="hono">Hono/Bun</strong></td><td>15.04 ms</td></tr>
+            <tr><td>Best small payload (100 items)</td><td style="text-align:right;"><strong>Go</strong></td><td>4.83 ms</td></tr>
+            <tr><td>Best RAM efficiency</td><td style="text-align:right;"><strong>Go</strong></td><td>6.4 MB RSS</td></tr>
+            <tr><td>Best scaling consistency</td><td style="text-align:right;"><strong class="hono">Hono/Bun</strong></td><td>2.7× from 100→5000 items</td></tr>
+            <tr><td>Lowest thread count</td><td style="text-align:right;"><strong>FastAPI</strong></td><td>1 thread</td></tr>
+            <tr><td>Best production balance</td><td style="text-align:right;"><strong class="hono">Hono/Bun</strong></td><td>Fast + light + consistent</td></tr>
+          </tbody>
+        </table>
+        <div class="footer">
+          Raw outputs stored in <code>D:\Benchmark Programming\results\</code><br>
+          Files: <code>dotnet_benchmark_v2.json</code> · <code>fastapi_benchmark_v2.json</code> · <code>golang_benchmark_v2.json</code> · <code>hono_benchmark_v2.json</code>
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

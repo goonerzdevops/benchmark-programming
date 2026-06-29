@@ -1,0 +1,224 @@
+{
+  ".NET 10": [
+    {
+      "size": "small",
+      "count": 100,
+      "runs": [
+        {
+          "run": 1,
+          "response_time_ms": 6.49,
+          "server_processing_ms": 0.165,
+          "items_out": 100
+        },
+        {
+          "run": 2,
+          "response_time_ms": 4.11,
+          "server_processing_ms": 0.1158,
+          "items_out": 100
+        },
+        {
+          "run": 3,
+          "response_time_ms": 4.71,
+          "server_processing_ms": 0.1179,
+          "items_out": 100
+        }
+      ]
+    },
+    {
+      "size": "medium",
+      "count": 1000,
+      "runs": [
+        {
+          "run": 1,
+          "response_time_ms": 9.89,
+          "server_processing_ms": 0.8159,
+          "items_out": 1000
+        },
+        {
+          "run": 2,
+          "response_time_ms": 9.47,
+          "server_processing_ms": 0.8311,
+          "items_out": 1000
+        },
+        {
+          "run": 3,
+          "response_time_ms": 8.99,
+          "server_processing_ms": 1.0001,
+          "items_out": 1000
+        }
+      ]
+    },
+    {
+      "size": "large",
+      "count": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "response_time_ms": 39.99,
+          "server_processing_ms": 7.9327,
+          "items_out": 5000
+        },
+        {
+          "run": 2,
+          "response_time_ms": 38.82,
+          "server_processing_ms": 4.8826,
+          "items_out": 5000
+        },
+        {
+          "run": 3,
+          "response_time_ms": 41.63,
+          "server_processing_ms": 4.098,
+          "items_out": 5000
+        }
+      ]
+    }
+  ],
+  "FastAPI": [
+    {
+      "size": "small",
+      "count": 100,
+      "runs": [
+        {
+          "run": 1,
+          "response_time_ms": 7.17,
+          "server_processing_ms": 0.00022530555725097656,
+          "items_out": 100
+        },
+        {
+          "run": 2,
+          "response_time_ms": 5.38,
+          "server_processing_ms": 0.00010752677917480469,
+          "items_out": 100
+        },
+        {
+          "run": 3,
+          "response_time_ms": 4.99,
+          "server_processing_ms": 9.679794311523438e-05,
+          "items_out": 100
+        }
+      ]
+    },
+    {
+      "size": "medium",
+      "count": 1000,
+      "runs": [
+        {
+          "run": 1,
+          "response_time_ms": 23.9,
+          "server_processing_ms": 0.0008995532989501953,
+          "items_out": 1000
+        },
+        {
+          "run": 2,
+          "response_time_ms": 25.38,
+          "server_processing_ms": 0.0013937950134277344,
+          "items_out": 1000
+        },
+        {
+          "run": 3,
+          "response_time_ms": 30.94,
+          "server_processing_ms": 0.001817464828491211,
+          "items_out": 1000
+        }
+      ]
+    },
+    {
+      "size": "large",
+      "count": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "response_time_ms": 109.0,
+          "server_processing_ms": 0.006780862808227539,
+          "items_out": 5000
+        },
+        {
+          "run": 2,
+          "response_time_ms": 121.51,
+          "server_processing_ms": 0.005411386489868164,
+          "items_out": 5000
+        },
+        {
+          "run": 3,
+          "response_time_ms": 88.89,
+          "server_processing_ms": 0.004419803619384766,
+          "items_out": 5000
+        }
+      ]
+    }
+  ],
+  "Go net/http": [
+    {
+      "size": "small",
+      "count": 100,
+      "runs": [
+        {
+          "run": 1,
+          "response_time_ms": 2.96,
+          "server_processing_ms": 0.18,
+          "items_out": 100
+        },
+        {
+          "run": 2,
+          "response_time_ms": 2.32,
+          "server_processing_ms": 0.19,
+          "items_out": 100
+        },
+        {
+          "run": 3,
+          "response_time_ms": 2.5,
+          "server_processing_ms": 0.18,
+          "items_out": 100
+        }
+      ]
+    },
+    {
+      "size": "medium",
+      "count": 1000,
+      "runs": [
+        {
+          "run": 1,
+          "response_time_ms": 11.97,
+          "server_processing_ms": 5.29,
+          "items_out": 1000
+        },
+        {
+          "run": 2,
+          "response_time_ms": 11.65,
+          "server_processing_ms": 4.69,
+          "items_out": 1000
+        },
+        {
+          "run": 3,
+          "response_time_ms": 11.28,
+          "server_processing_ms": 5.18,
+          "items_out": 1000
+        }
+      ]
+    },
+    {
+      "size": "large",
+      "count": 5000,
+      "runs": [
+        {
+          "run": 1,
+          "response_time_ms": 136.87,
+          "server_processing_ms": 113.35,
+          "items_out": 5000
+        },
+        {
+          "run": 2,
+          "response_time_ms": 133.06,
+          "server_processing_ms": 109.84,
+          "items_out": 5000
+        },
+        {
+          "run": 3,
+          "response_time_ms": 138.02,
+          "server_processing_ms": 113.87,
+          "items_out": 5000
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "small": {
+    "count": 100,
+    "runs": [
+      {
+        "run": 1,
+        "response_ms": 17.99,
+        "server_ms": 2.0555,
+        "items_out": 100
+      },
+      {
+        "run": 2,
+        "response_ms": 5.05,
+        "server_ms": 0.2247,
+        "items_out": 100
+      },
+      {
+        "run": 3,
+        "response_ms": 4.45,
+        "server_ms": 0.1878,
+        "items_out": 100
+      }
+    ],
+    "avg": 9.16
+  },
+  "medium": {
+    "count": 1000,
+    "runs": [
+      {
+        "run": 1,
+        "response_ms": 17.26,
+        "server_ms": 1.2905,
+        "items_out": 1000
+      },
+      {
+        "run": 2,
+        "response_ms": 9.2,
+        "server_ms": 0.931,
+        "items_out": 1000
+      },
+      {
+        "run": 3,
+        "response_ms": 7.75,
+        "server_ms": 0.8081,
+        "items_out": 1000
+      }
+    ],
+    "avg": 11.4
+  },
+  "large": {
+    "count": 5000,
+    "runs": [
+      {
+        "run": 1,
+        "response_ms": 51.17,
+        "server_ms": 5.2537,
+        "items_out": 5000
+      },
+      {
+        "run": 2,
+        "response_ms": 36.24,
+        "server_ms": 7.5551,
+        "items_out": 5000
+      },
+      {
+        "run": 3,
+        "response_ms": 32.98,
+        "server_ms": 7.2608,
+        "items_out": 5000
+      }
+    ],
+    "avg": 40.13
+  }
+}
