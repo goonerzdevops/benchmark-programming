@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Benchmark v5 — Heavy Load Executive Report</title>
+  <style>
+    :root{--bg:#0a1020;--panel:#11192d;--text:#eef3ff;--muted:#aab3d4;--line:rgba(255,255,255,.08);--gold:#f6d36b;--good:#56d6a7;--blue:#7f9cff;--red:#ff7486;--shadow:0 24px 60px rgba(0,0,0,.38);--radius:22px}
+    *{box-sizing:border-box} body{margin:0;color:var(--text);font:15px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:radial-gradient(circle at top,rgba(127,156,255,.16),transparent 28%),radial-gradient(circle at 85% 0%,rgba(86,214,167,.08),transparent 22%),linear-gradient(180deg,#0b1020 0%,#090e1a 100%)}
+    .wrap{max-width:1320px;margin:0 auto;padding:32px 18px 56px}.hero{border:1px solid var(--line);background:linear-gradient(135deg,rgba(127,156,255,.14),rgba(86,214,167,.08));border-radius:calc(var(--radius) + 4px);padding:30px;box-shadow:var(--shadow)}.kicker{display:inline-flex;align-items:center;gap:8px;color:var(--gold);letter-spacing:.16em;text-transform:uppercase;font-size:12px;font-weight:700}.dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 18px rgba(246,211,107,.8)} h1{margin:10px 0 8px;font-size:clamp(30px,5vw,44px);line-height:1.08}.sub{color:var(--muted);max-width:100ch;font-size:15px}.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.chip{padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);font-size:13px}.grid{display:grid;gap:16px;grid-template-columns:repeat(12,1fr);margin-top:18px}.card{grid-column:span 12;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03));border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);backdrop-filter:blur(10px)}@media(min-width:960px){.span-4{grid-column:span 4}.span-6{grid-column:span 6}.span-8{grid-column:span 8}} h2{margin:0 0 14px;font-size:20px;letter-spacing:-.02em}.metric{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:18px;padding:16px}.metric .label{color:var(--muted);font-size:13px}.metric .value{font-size:28px;font-weight:800;margin-top:4px}.metric .hint{color:var(--muted);font-size:13px;margin-top:4px}.callout{border-left:3px solid var(--gold);background:rgba(246,211,107,.08);padding:12px 14px;border-radius:12px;color:#f5f0d0} table{width:100%;border-collapse:collapse;border-radius:14px;overflow:hidden} th,td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top} th{background:rgba(255,255,255,.04);color:#dbe4ff;font-size:12px;text-transform:uppercase;letter-spacing:.04em}.right{text-align:right}.stack{font-weight:700}.net{color:#9bb2ff}.fastapi{color:#ffb47a}.go{color:#74e0b7}.hono{color:#f7de7a}.badge{display:inline-block;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--line);background:rgba(255,255,255,.05)}.badge.good{color:#7ff0bf}.badge.winner{color:var(--gold)}.badge.bad{color:#ff92a2}.bar{height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:8px}.fill{height:100%;border-radius:inherit}.netbar{width:100%;background:linear-gradient(90deg,#829dff,#a97dff)}.fastapibar{width:54%;background:linear-gradient(90deg,#ffb57a,#ff7f64)}.gobar{width:8%;background:linear-gradient(90deg,#5fe0b0,#8fe6c6)}.honobar{width:30%;background:linear-gradient(90deg,#f7de7a,#f1b74f)}.small{color:var(--muted);font-size:12px;margin-top:6px}.footer{color:var(--muted);font-size:13px;margin-top:18px}.tight td,.tight th{padding-top:10px;padding-bottom:10px}.summary-list{margin:0;padding-left:20px;color:var(--muted)}.summary-list li{margin:6px 0}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="kicker"><span class="dot"></span> Benchmark v5 Heavy Load Executive Report</div>
+    <h1>4-stack benchmark under request, concurrency, payload, and soak pressure</h1>
+    <div class="sub">Phase 1: request counts (1/10/100). Phase 2: concurrency levels (1/5/20/50). Phase 3: payload sizes (100/1000/5000 items). Phase 4: 10-minute soak at concurrency 20. Metrics: p50/p95/p99 latency, RPS, CPU, RSS, threads.</div>
+    <div class="chips"><div class="chip">Date: 2026-06-29</div><div class="chip">Mode: isolated / one-by-one</div><div class="chip">Stack count: 4</div><div class="chip">Load tool: oha + Python harness</div></div>
+  </section>
+
+  <div class="grid">
+    <section class="card span-4"><h2>Overall Winner</h2><div class="metric"><div class="label">Best under heavy load</div><div class="value hono">Hono/Bun</div><div class="hint">Best latency + good memory balance</div></div></section>
+    <section class="card span-4"><h2>Most Memory Efficient</h2><div class="metric"><div class="label">Idle RSS</div><div class="value go">Go</div><div class="hint">~13–15 MB live, ~6.4 MB earlier snapshot</div></div></section>
+    <section class="card span-4"><h2>Heaviest Footprint</h2><div class="metric"><div class="label">Runtime footprint</div><div class="value net">.NET 10</div><div class="hint">~149 MB RSS host + ~57 MB app</div></div></section>
+
+    <section class="card span-12">
+      <h2>Phase 4 Soak Test (10 minutes, concurrency 20)</h2>
+      <table class="tight"><thead><tr><th>Stack</th><th class="right">Avg</th><th class="right">p50</th><th class="right">p95</th><th class="right">p99</th><th class="right">Samples</th><th>Takeaway</th></tr></thead>
+      <tbody>
+        <tr><td class="stack net">.NET 10</td><td class="right">59.69 ms</td><td class="right">41.65 ms</td><td class="right">77.44 ms</td><td class="right">114.88 ms</td><td class="right">2120</td><td><span class="badge good">Stable, but heavier</span></td></tr>
+        <tr><td class="stack fastapi">FastAPI</td><td class="right">126.98 ms</td><td class="right">112.07 ms</td><td class="right">262.86 ms</td><td class="right">368.17 ms</td><td class="right">2080</td><td><span class="badge bad">Big tail latency</span></td></tr>
+        <tr><td class="stack go">Go</td><td class="right">163.02 ms</td><td class="right">139.86 ms</td><td class="right">385.98 ms</td><td class="right">465.16 ms</td><td class="right">2080</td><td><span class="badge good">Low RSS, higher latency at soak</span></td></tr>
+        <tr><td class="stack hono">Hono/Bun</td><td class="right">23.06 ms</td><td class="right">41.79 ms</td><td class="right">85.65 ms</td><td class="right">131.27 ms</td><td class="right">2140</td><td><span class="badge winner">🏆 Best balance</span></td></tr>
+      </tbody></table>
+      <div class="callout" style="margin-top:12px;">In soak, Hono/Bun keeps latency tight while staying moderate in memory. Go remains tiny, but its soak latency is higher than Hono/Bun in this workload. .NET is stable yet heavier. FastAPI shows the widest tail latency.</div>
+    </section>
+
+    <section class="card span-12">
+      <h2>Concurrency Phase Highlights</h2>
+      <table class="tight"><thead><tr><th>Stack</th><th class="right">1</th><th class="right">5</th><th class="right">20</th><th class="right">50</th><th>RPS trend</th></tr></thead>
+      <tbody>
+        <tr><td class="stack net">.NET 10</td><td class="right">117.00</td><td class="right">23.62</td><td class="right">200.98</td><td class="right">344.61</td><td>Strong throughput at scale, but latency variance increases at mid-load.</td></tr>
+        <tr><td class="stack fastapi">FastAPI</td><td class="right">204.49</td><td class="right">314.11</td><td class="right">300.05</td><td class="right">263.25</td><td>Good at low concurrency, then drops under heavy parallel pressure.</td></tr>
+        <tr><td class="stack go">Go</td><td class="right">412.07</td><td class="right">478.71</td><td class="right">404.67</td><td class="right">439.57</td><td>Excellent raw RPS with minimal footprint.</td></tr>
+        <tr><td class="stack hono">Hono/Bun</td><td class="right">412.98</td><td class="right">521.32</td><td class="right">108.10</td><td class="right">506.23</td><td>Top end-to-end balance; the 20-concurrency dip is the main anomaly.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section class="card span-6">
+      <h2>Visual Resource Bars</h2>
+      <div class="metric"><div class="stack net">.NET 10</div><div class="bar"><div class="fill netbar"></div></div><div class="small">~149 MB RSS host + app, strongest footprint.</div></div>
+      <div class="metric" style="margin-top:12px;"><div class="stack fastapi">FastAPI</div><div class="bar"><div class="fill fastapibar"></div></div><div class="small">~45 MB RSS, 1 thread, but weak tail latency.</div></div>
+      <div class="metric" style="margin-top:12px;"><div class="stack go">Go net/http</div><div class="bar"><div class="fill gobar"></div></div><div class="small">~14 MB RSS at soak sample, tiny footprint.</div></div>
+      <div class="metric" style="margin-top:12px;"><div class="stack hono">Hono/Bun</div><div class="bar"><div class="fill honobar"></div></div><div class="small">~60–82 MB RSS, best performance balance.</div></div>
+    </section>
+
+    <section class="card span-6">
+      <h2>Executive Takeaways</h2>
+      <ul class="summary-list">
+        <li><strong>Hono/Bun</strong> is the best overall balance under brutal benchmark pressure.</li>
+        <li><strong>Go</strong> remains the lightest in memory and strongest for minimal VPS sizing.</li>
+        <li><strong>.NET 10</strong> is stable and capable, but has the highest runtime footprint.</li>
+        <li><strong>FastAPI</strong> is acceptable at low load, but tail latency grows sharply in soak.</li>
+      </ul>
+      <div class="callout" style="margin-top:14px;">If the question is “which stack eats the least resources while still surviving heavy tests?”, the answer is <strong>Go</strong>. If the question is “which stack gives the best overall balance of speed and resource use?”, the answer is <strong>Hono/Bun</strong>.</div>
+    </section>
+
+    <section class="card span-12">
+      <h2>Final Verdict</h2>
+      <table class="tight"><tbody>
+        <tr><td>Best overall under heavy load</td><td class="right"><span class="badge winner">Hono/Bun</span></td></tr>
+        <tr><td>Lowest memory use</td><td class="right"><span class="badge good">Go</span></td></tr>
+        <tr><td>Highest raw footprint</td><td class="right"><span class="badge bad">.NET 10</span></td></tr>
+        <tr><td>Needs most tuning</td><td class="right"><span class="badge">FastAPI</span></td></tr>
+      </tbody></table>
+      <div class="footer">Source: <code>D:\Benchmark Programming\results\benchmark_v5_summary.json</code>. Report: <strong>benchmark_v5_heavy_load_report.html</strong>.</div>
+    </section>
+  </div>
+</div>
+</body>
+</html>
