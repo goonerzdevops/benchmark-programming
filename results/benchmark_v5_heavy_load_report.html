@@ -15,8 +15,29 @@
   <section class="hero">
     <div class="kicker"><span class="dot"></span> Benchmark v5 Heavy Load Executive Report</div>
     <h1>4-stack benchmark under request, concurrency, payload, and soak pressure</h1>
-    <div class="sub">Phase 1: request counts (1/10/100). Phase 2: concurrency levels (1/5/20/50). Phase 3: payload sizes (100/1000/5000 items). Phase 4: 10-minute soak at concurrency 20. Metrics: p50/p95/p99 latency, RPS, CPU, RSS, threads.</div>
-    <div class="chips"><div class="chip">Date: 2026-06-29</div><div class="chip">Mode: isolated / one-by-one</div><div class="chip">Stack count: 4</div><div class="chip">Load tool: oha + Python harness</div></div>
+    <div class="sub">Empat fase pengujian berurutan untuk setiap stack. Setiap stack dijalankan isolated — satu per satu. Server distart, diuji semua fase, distop, baru stack berikutnya. Tidak ada concurrency antar-stack.</div>
+    <div class="chips"><div class="chip">Tanggal: 2026-06-29</div><div class="chip">Mode: isolated / one-by-one</div><div class="chip">Jumlah stack: 4</div><div class="chip">Load tool: Python harness + ThreadPoolExecutor</div></div>
+  </section>
+
+  <section class="card span-12">
+    <h2>📋 Metodologi Pengujian</h2>
+    <p style="color:var(--muted);">Benchmark dibagi menjadi 4 fase. Metrik yang diukur di semua fase: <strong>p50 / p95 / p99 latency (ms)</strong>, <strong>RPS (requests per second)</strong>, <strong>CPU%</strong>, <strong>RSS (Resident Set Size, KB)</strong>, dan <strong>thread count</strong>. Sampling resource dilakukan via <code>ps</code> setiap ~5 detik selama soak test.</p>
+    <table class="tight"><thead><tr><th>Fase</th><th>Apa yang dilakukan</th><th>Tujuan</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Phase 1<br>Request Count</strong></td><td>Kirim <strong>1, 10, dan 100 request</strong> secara sekuensial (satu per satu) dengan payload tetap 100 item. Dicatat latency tiap request.</td><td>Mengukur overhead base tiap stack dan bagaimana latency berubah saat jumlah request meningkat secara linear.</td></tr>
+      <tr><td><strong>Phase 2<br>Concurrency</strong></td><td>Kirim request dengan concurrent worker: <strong>1, 5, 20, dan 50</strong>. Total request = concurrency × 20. Semua request dikirim parallel via ThreadPoolExecutor.</td><td>Mengukur kemampuan stack menangani parallel load. Inilah yang paling membedakan stack async vs blocking.</td></tr>
+      <tr><td><strong>Phase 3<br>Payload Size</strong></td><td>Kirim <strong>3 request sekuensial</strong> per ukuran payload: <strong>100, 1000, dan 5000 item</strong>. Setiap item berisi numeric_value (float) + string_data (string acak 5-30 karakter).</td><td>Mengukur scaling behavior seiring ukuran data yang diproses. Menunjukkan efisiensi serialization + memory processing.</td></tr>
+      <tr><td><strong>Phase 4<br>Soak Test</strong></td><td>Jalanin terus-menerus selama <strong>10 menit</strong> dengan concurrency 20. Tiap interval ~5 detik, resource di-snapshot (CPU/RSS/threads).</td><td>Mengukur stabilitas jangka panjang: memory leak, GC pressure, throttling, dan degradasi performa.</td></tr>
+    </tbody></table>
+    <div class="callout" style="margin-top:14px;">
+      <strong>Definisi metrik:</strong>
+      <ul style="margin:6px 0 0;padding-left:20px;color:#f5f0d0;">
+        <li><strong>RSS</strong> (Resident Set Size) = memori fisik RAM yang benar-benar dipakai proses, bukan virtual memory.</li>
+        <li><strong>p50/p95/p99</strong> = median, persentil 95%, dan persentil 99% dari seluruh sampel latency. Semakin dekat ke p50, semakin konsisten stack tersebut.</li>
+        <li><strong>RPS</strong> = request per detik yang berhasil diproses. Makin tinggi makin baik untuk throughput.</li>
+        <li><strong>Threads</strong> = jumlah thread aktif di proses server saat snapshot.</li>
+      </ul>
+    </div>
   </section>
 
   <div class="grid">
